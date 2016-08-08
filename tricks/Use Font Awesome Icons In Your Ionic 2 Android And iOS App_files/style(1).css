@@ -1,0 +1,155 @@
+html,
+body {
+    margin: 0;
+	}
+body {
+    font-family: Helvetica, Arial, sans;
+    margin: 0px;
+    padding: 0px;
+    background: #fff;
+    color: #ffffff;
+	}
+body, body * {
+    box-sizing: border-box;
+    backface-visibility: hidden;
+    outline: 1px solid transparent;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(1.0, 1.0);
+	}
+#container {
+    width: 728px;
+    height: 90px;
+    position: relative;
+    border: 1px solid #000;
+    overflow: hidden;
+    background: #ededed;
+    cursor: pointer;
+	}
+
+img {
+    display: block;
+    border: none;
+    margin: 0;
+    padding: 0;
+	}
+
+#bkg{
+	position: absolute;
+	width: 728px;
+	height: 90px;
+	transform: translate(0px, 0px);
+	background: #fff url(bkg.jpg);
+	z-index: 1;
+	opacity: 0;
+	}
+		
+#clickthrough{
+	width: 100%;
+	height: 100%;
+	pointer-events: all;
+	cursor: pointer;
+	z-index: 99;
+	position: absolute;
+	top:0px;
+	left: 0px;
+	}
+
+#office365{
+	width: 240px;
+	height: 23px;
+	position: absolute;
+	transform: translate(185px, -30px);
+	-webkit-transform: translate(185px, -30px);
+	-ms-transform: translate(185px, -30px);
+	z-index: 86;
+	opacity: 0;
+	}
+		
+#text-wrapper{
+	position: absolute;
+	z-index: 50;
+	top: 0px;
+	left: 110px;
+	width: 474px;
+	height: 90px;
+	}
+	#text-wrapper .text{
+		width: 0px;
+		height: 90px;
+		top: 0px;
+		left: 0px;
+		position: absolute;
+		opacity: 1;
+		display: inline-block;
+		overflow: hidden;
+		z-index: 20;
+		}
+	#text-wrapper .highlight{
+		width: 474px;
+		height: 90px;
+		top: 0px;
+		left: 0px;
+		position: absolute;
+		opacity: 1;
+		display: inline-block;
+		overflow: hidden;
+		z-index: 1;
+		}
+		#text-wrapper .highlight img{
+			width: 474px;
+			height: 90px;
+			top: 0px;
+			left: 0px;
+			position: absolute;
+			opacity: 0;
+			}	
+	#text-wrapper #cursor{
+		position: absolute;
+		opacity: 0;
+		top: 40px;
+		left: 15px;
+		z-index: 99;
+		}
+
+			
+		
+#cta{
+	width: 114px;
+	height: 31px;
+	overflow: hidden;
+	background-image: url(cta.png);
+	background-position: 0px 0px;
+	position: absolute;
+	top: 30px;
+	left: 750px;
+	opacity: 1;
+	z-index: 60;
+	}
+	#cta #hover{
+		width: 114px;
+		height: 31px;
+		position: absolute;
+		opacity: 0;
+		background-image: url(cta.png);
+		background-position: 0px -31px;
+		opacity: 0;
+		transition: opacity 0.4s 0s;
+		-webkit-transition: opacity 0.4s 0s;
+		}
+	
+	#container:hover #cta #hover{
+		opacity: 1;
+		}
+#logo{
+	width: 110px;
+	height: 90px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 85;
+	opacity: 1;
+	}
+
+	
+
+			

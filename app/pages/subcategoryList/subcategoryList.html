@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar [navBar]="navBar" dark>
+    <!--<ion-title>
+      {{inParams.mainTitle}}
+    </ion-title>-->
+  </ion-navbar>
+
+
+</ion-header>
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="إسحب للتحديث"
+      refreshingSpinner="circles"
+      style="color: #fff">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <ion-list-header style="text-align:center;font-weight: bold;font-size: 14pt;">
+      {{inParams.listHeader}}
+    </ion-list-header>
+
+    <button ion-item text-wrap *ngFor="let subCategory of subCategoryList" (click)="gotoMediaList({
+                      'mainTitle': inParams.mainTitle+ ' - ' +inParams.listHeader ,
+                      'listHeader': subCategory.Description,
+                      'subCategoryId': subCategory.Id
+                      })">
+        <ion-icon name="list" item-left></ion-icon>
+        <h2>{{subCategory.Description}}</h2>
+   </button>
+  </ion-list>
+</ion-content>

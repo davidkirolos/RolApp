@@ -1,0 +1,177 @@
+// http://ionicframework.com/docs/v2/theming/
+
+// Ionic Shared Functions
+// --------------------------------------------------
+// Makes Ionic Sass functions available to your App
+
+@import "globals.core";
+
+// App Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files. Setting
+// variables before Ionic's Sass will use these variables rather than
+// Ionic's default Sass variable values. App Shared Sass imports belong
+// in the app.core.scss file and not this file. Sass variables specific
+// to the mode belong in either the app.ios.scss or app.md.scss files.
+
+
+// App Shared Color Variables
+// --------------------------------------------------
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+// Both iOS and MD colors can be further customized if colors
+// are different per mode.
+
+$colors: (
+  primary:    #327eff,
+  secondary:  #32db64,
+  danger:     #f53d3d,
+  light:      #f4f4f4,
+  dark:       #222,
+  favorite:   #69BB7B
+);
+
+// Center alight title
+// --------------------------------------------------
+ion-title{
+    text-align: center;
+}
+
+// make font bold in all toolbar segnamt
+// --------------------------------------------------
+.toolbar .segment-button {
+    font-weight: bold !important;
+}
+
+// Dark theme modefations.
+// --------------------------------------------------
+.tab-button[aria-selected=true] {
+    color: #327eff !important;
+}
+
+.toolbar[dark] .segment-button.segment-activated {
+    color: #327eff !important;
+    background-color: #f4f4f4 !important;
+}
+
+ion-segment[dark] .segment-button {
+    border-color: #f4f4f4 !important;
+    color: #fff !important;
+}
+
+.back-button-text {
+    font-size: 1.6rem;
+}
+
+// Back button style.
+// --------------------------------------------------
+.back-button {
+    font-weight: bold;
+}
+
+// theme modefations.
+// to fit the new background and add transperancy
+// --------------------------------------------------
+
+ion-page.show-page ~ .nav-decor {
+    background: rgba(0, 0, 0, 0.6) !important;
+}
+ion-content {
+    background-image: url('../../build/img/bg/bg05.jpg');
+    background-size: 100% auto;
+    background-color: #000 !important;
+    color: #fff !important;
+}
+scroll-content{
+    background-color: rgba(0, 0, 0, 0.1)  !important;
+    // top: 5px  !important;
+    // right: 5px  !important;
+    // bottom: 5px  !important;
+    // left: 5px  !important;
+    border-radius: 5px;
+}
+
+ion-label {
+    color: #fff !important;
+}
+
+ion-navbar.toolbar {
+   border-color: rgba(9, 9, 9, 0) !important;
+    background: rgba(0, 0,0, 0.2) !important;
+}
+
+.toolbar[dark] .toolbar-background {
+    border-color: rgba(9, 9, 9, 0) !important;
+    background: rgba(0, 0,0, 0.3) !important;
+}
+ion-tabs[dark] ion-tabbar {
+    border-color: rgba(9, 9, 9, 0) !important;
+    background: rgba(0, 0,0, 0.7) !important;
+}
+
+ion-list {
+    //background-color: rgba(34, 34, 34, 0.4);    
+    background-color: rgba(80, 82, 88, 0.6);
+    border-radius: 5px;
+}
+
+ion-list-header {
+    background-color: rgba(10, 10, 10, 0.8);
+    text-align:center;
+    font-weight: bold !important;
+    font-size: 1.5rem !important;
+}
+
+ion-item-divider[light] {
+    color: #fff !important;
+    background-color: rgba(12, 12, 12, 0.8) !important;
+}
+
+.item {
+    color: #fff !important;
+    background-color: rgba(20, 20, 20, 0.5) !important;
+    font-size: 1.5rem !important;
+}
+
+.item p {
+        color: #cecece !important;
+}
+
+body{
+    font-size: 2rem !important;
+}
+
+.refresher-pulling-icon, .refresher-refreshing-icon {
+    color: #fff !important;
+}
+.refresher-pulling-text, .refresher-refreshing-text {
+    color: #fff !important;
+}
+.spinner-circles circle {
+    fill: #fff !important;
+}
+.loading-spinner .spinner-ios line, .loading-spinner .spinner-ios-small line {
+    stroke: #fff !important;
+}
+
+.loading-wrapper {
+    background: rgba(248, 248, 248, 0) !important;
+}
+
+ion-spinner {
+    width: 40px !important;
+    height: 40px !important;
+}
+
+ion-thumbnail img {
+    max-width: 10.6rem !important;
+    max-height: 5.6rem;
+}
+
+// ion-avatar[item-left], ion-thumbnail[item-left] {
+//     margin: 5px 5px 5px 0 !important;
+//     padding-top: 10px;
+// }

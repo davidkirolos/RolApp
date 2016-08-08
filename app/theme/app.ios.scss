@@ -1,0 +1,71 @@
+// http://ionicframework.com/docs/v2/theming/
+
+// App Shared Variables
+// --------------------------------------------------
+// Shared Sass variables go in the app.variables.scss file
+@import "app.variables";
+
+
+// App iOS Variables
+// --------------------------------------------------
+// iOS only Sass variables can go here
+
+
+// Ionic iOS Sass
+// --------------------------------------------------
+// Custom App variables must be declared before importing Ionic.
+// Ionic will use its default values when a custom variable isn't provided.
+@import "ionic.ios";
+
+
+// App Shared Sass
+// --------------------------------------------------
+// All Sass files that make up this app goes into the app.core.scss file.
+// For simpler CSS overrides, custom app CSS must come after Ionic's CSS.
+@import "app.core";
+
+
+// Fix RTL for Toolbar in IOS
+// --------------------------------------------------
+// .segment-button:first-of-type {
+//     border-radius: 0 4px 4px 0;
+//     margin-right: 0; }
+//   .segment-button:not(:first-of-type) {
+//     border-right-width: 0; }
+//   .segment-button:last-of-type {
+//     border-right-width: 0;
+//     border-radius: 4px 0 0 4px;
+//     margin-right: 0; }
+.segment-button:first-of-type {
+    margin-right: 0;
+    border-radius: 0 $segment-button-ios-border-radius $segment-button-ios-border-radius 0 ;
+}
+
+  .segment-button:not(:first-of-type) {
+    border-right-width: 0; 
+    border-left-width: 1px; 
+    }
+.segment-button:last-of-type {
+    margin-right: 0;
+    border-left-width: 1px;
+    border-radius: $segment-button-ios-border-radius 0 0 $segment-button-ios-border-radius ;
+}
+
+// Font size for toolbar buttom segment
+// --------------------------------------------------
+.toolbar .segment-button {
+    font-size: 1.5rem;
+}
+
+// select arrow in the list for ios
+// --------------------------------------------------
+.item[detail-push] .item-inner, button.item:not([detail-none]) .item-inner, a.item:not([detail-none]) .item-inner {
+    background-image: url("data:image/svg+xml;charset=utf-8,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2012%2020'><path%20d='m10.14761,20l1.825364,-2l-7.301456,-8l6.388774,-8l-1.825364,-2l-9.12682,10l9.12682,10l0.912682,0z'%20fill='%23c8c7cc'/></svg>")  ;
+    padding-left: 32px ;
+    padding-right: initial ;
+    background-repeat: no-repeat;
+    background-position: left 0px center ;
+}
+// App iOS Only Sass
+// --------------------------------------------------
+// CSS that should only apply to the iOS app

@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar [navBar]="navBar" dark>
+    <!--<ion-title>
+      {{inParams.mainTitle}}
+    </ion-title>-->
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!--<ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="إسحب للتحديث" refreshingSpinner="circles" style="color: #fff">
+    </ion-refresher-content>
+  </ion-refresher>-->
+  
+  <ion-list>
+    <ion-list-header style="text-align:center;font-weight: bold;font-size: 14pt;">
+      {{inParams.listHeader}}
+
+    </ion-list-header>
+
+      <media-player></media-player>
+
+    <button ion-item text-wrap *ngFor="let media of mediaList" (click)="loadMedia(media,true)">
+       <ion-thumbnail item-left>
+          <img src="../build/img/others/audio_dark.png" style="background-image:url('build/img/others/audio_dark.png');
+          
+          background-position:center center; 
+          background-size:cover; 
+          width:100%; 
+          height:100%;">             
+          
+        </ion-thumbnail>
+        
+        <div *ngIf="media.Author != '.' && media.Author != ' .'" >
+        <h2>{{media.Author}}</h2>
+        </div>
+        <h2>{{media.Title}}</h2>
+        <p>{{media.MediaDate}}</p>
+   </button>
+  </ion-list>
+</ion-content>

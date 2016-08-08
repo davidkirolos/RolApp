@@ -1,0 +1,220 @@
+<ion-header>
+  <ion-navbar dark dir="rtl">
+    <ion-title>
+      الميديا
+    </ion-title>
+  </ion-navbar>
+
+  <ion-toolbar dark>
+    <ion-segment dark [(ngModel)]="mediaTabs">
+      <ion-segment-button value="1">
+        اجتماعات الاحد
+      </ion-segment-button>
+      <ion-segment-button value="2">
+        مؤتمرات
+      </ion-segment-button>
+      <ion-segment-button value="3">
+        شفاءات
+      </ion-segment-button>
+      <!--<ion-segment-button value="4">
+        أخرى
+      </ion-segment-button>-->
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content dir="rtl" padding class="media">
+  <div [ngSwitch]="mediaTabs">
+
+    <ion-list *ngSwitchCase="'1'">
+      <ion-list-header >
+        اجتماعات الاحد
+      </ion-list-header>
+      <ion-item-group>
+        <ion-item-divider light style="font-weight:bold;">
+          <ion-icon name="musical-notes" item-left></ion-icon>
+          تسبيح و عبادة
+        </ion-item-divider>
+        <!--<button ion-item (click)="gotoSubcategoryList({
+                                            mainCategoryId : '17', 
+                                            mainTitle: 'إجتماعات الاحد',
+                                            listHeader: 'تسبيح و عبادة - مسموعة' 
+                                        })">-->
+        <button ion-item (click)="gotoMediaList({
+                                            subCategoryId : '97', 
+                                            mainTitle: 'إجتماعات الاحد - تسبيح و عبادة - مسموعة',
+                                            listHeader: 'فترات التسبيح الاسبوعية' 
+                                        })">
+          <ion-icon name="volume-up" item-left></ion-icon>
+          مسموعة
+        <ion-badge item-right></ion-badge>
+        </button>
+        <!--<button ion-item (click)="gotoSubcategoryList({
+                                            mainCategoryId : '15', 
+                                            mainTitle: 'إجتماعات الاحد',
+                                            listHeader: 'تسبيح و عبادة - مرئية' 
+                                        })">-->
+                                         <button ion-item (click)="gotoMediaList({
+                                            subCategoryId : '80', 
+                                            mainTitle: 'إجتماعات الاحد - تسبيح و عبادة - مرئية',
+                                            listHeader: 'فترات التسبيح الاسبوعية' 
+                                        })">
+          <ion-icon name="videocam" item-left></ion-icon>
+          مرئية
+        </button>
+        <button ion-item (click)="gotoSubcategoryList({
+                                            mainCategoryId : '1', 
+                                            mainTitle: 'إجتماعات الاحد',
+                                            listHeader: 'فترة تسبيح الاسبوع' 
+                                        })">
+          <ion-icon name="clock" item-left></ion-icon>
+          فترة تسبيح الاسبوع
+        </button>
+      </ion-item-group>
+
+      <ion-item-group>
+        <ion-item-divider light style="font-weight:bold;">
+          <ion-icon name="book" item-left></ion-icon>
+          عظات
+        </ion-item-divider>
+        <button ion-item (click)="gotoSubcategoryList({
+                                            mainCategoryId : '1', 
+                                            mainTitle: 'إجتماعات الاحد',
+                                            listHeader: 'عظات - مسموعة' 
+                                        })">
+          <ion-icon name="volume-up" item-left></ion-icon>
+          مسموعة
+        </button>
+        <button ion-item (click)="gotoSubcategoryList({
+                                            mainCategoryId : '14', 
+                                            mainTitle: 'إجتماعات الاحد',
+                                            listHeader: 'عظات - مرئية' 
+                                        })">
+          <ion-icon name="videocam" item-left></ion-icon>
+          مرئية
+        </button>
+        <button ion-item (click)="gotoSubcategoryList({
+                                            mainCategoryId : '15', 
+                                            mainTitle: 'إجتماعات الاحد',
+                                            listHeader: 'عظة الاسبوع' 
+                                        })">
+          <ion-icon name="clock" item-left></ion-icon>
+          عظة الاسبوع
+        </button>
+      </ion-item-group>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'2'">
+      <ion-list-header >
+        مؤتمرات
+      </ion-list-header>
+      <ion-item-group>
+        <ion-item-divider light style="font-weight:bold;">
+          <ion-icon name="musical-notes" item-left></ion-icon>
+          تسبيح و عبادة
+        </ion-item-divider>
+        <button ion-item (click)="gotoSubcategoryList({
+                                            mainCategoryId : '21', 
+                                            mainTitle: 'مؤتمرات',
+                                            listHeader: 'تسبيح و عبادة - مسموعة' 
+                                        })">
+          <ion-icon name="volume-up" item-left></ion-icon>
+          مسموعة
+        </button>
+        <button ion-item (click)="gotoSubcategoryList({
+                                            mainCategoryId : '20', 
+                                            mainTitle: 'مؤتمرات',
+                                            listHeader: 'تسبيح و عبادة - مرئية' 
+                                        })">
+          <ion-icon name="videocam" item-left></ion-icon>
+          مرئية
+        </button>
+      </ion-item-group>
+
+      <ion-item-group>
+        <ion-item-divider light style="font-weight:bold;">
+          <ion-icon name="book" item-left></ion-icon>
+          عظات
+        </ion-item-divider>
+        <button ion-item (click)="gotoSubcategoryList({
+                                            mainCategoryId : '2', 
+                                            mainTitle: 'مؤتمرات',
+                                            listHeader: 'عظات - مسموعة' 
+                                        })">
+          <ion-icon name="volume-up" item-left></ion-icon>
+          مسموعة
+        </button>
+        <button ion-item (click)="gotoSubcategoryList({
+                                            mainCategoryId : '16', 
+                                            mainTitle: 'مؤتمرات',
+                                            listHeader: 'عظات - مرئية' 
+                                        })">
+          <ion-icon name="videocam" item-left></ion-icon>
+          مرئية
+        </button>
+      </ion-item-group>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'3'">
+      <ion-list-header >
+        الاله الصانع العجائب
+      </ion-list-header>
+
+      <button ion-item text-wrap *ngFor="let wondersMedia of wondersMediaList">
+        <ion-thumbnail item-left>
+          <img src="http://riversoflife.ca/rolar/images/social/god_of_wonders/{{wondersMedia.Id}}.jpg">
+        </ion-thumbnail>
+          <h2>{{wondersMedia.Title}}</h2>
+        <p>{{wondersMedia.UploadDate}}</p>
+    </button>
+    </ion-list>
+
+
+    <ion-list *ngSwitchCase="'4'">
+      <ion-list-header >
+        اخرى
+      </ion-list-header>
+
+      <ion-item-group>
+        <ion-item-divider light style="font-weight:bold;">
+          <ion-icon name="calendar" item-left></ion-icon>
+          مناسبات خاصة
+        </ion-item-divider>
+        <button ion-item>
+          <ion-icon name="volume-up" item-left></ion-icon>
+          مسموعة
+        </button>
+        <button ion-item>
+          <ion-icon name="videocam" item-left></ion-icon>
+          مرئية
+        </button>
+      </ion-item-group>
+
+      <ion-item-group>
+        <ion-item-divider light style="font-weight:bold;">
+
+          <ion-icon name="recording" item-left></ion-icon>
+          منوعات
+        </ion-item-divider>
+        <button ion-item>
+          <ion-icon name="videocam" item-left></ion-icon>
+          مسرحيات
+        </button>
+        <button ion-item>
+          <ion-icon name="videocam" item-left></ion-icon>
+          دراما
+        </button>
+        <button ion-item>
+          <ion-icon name="videocam" item-left></ion-icon>
+          حوارات
+        </button>
+        <button ion-item>
+          <ion-icon name="volume-up" item-left></ion-icon>
+          البومات ترانيم
+        </button>
+      </ion-item-group>
+
+    </ion-list>
+
+  </div>
+</ion-content>
