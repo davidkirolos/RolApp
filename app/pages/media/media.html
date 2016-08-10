@@ -27,7 +27,7 @@
   <div [ngSwitch]="mediaTabs">
 
     <ion-list *ngSwitchCase="'1'">
-      <ion-list-header >
+      <ion-list-header>
         اجتماعات الاحد
       </ion-list-header>
       <ion-item-group>
@@ -54,7 +54,7 @@
                                             mainTitle: 'إجتماعات الاحد',
                                             listHeader: 'تسبيح و عبادة - مرئية' 
                                         })">-->
-                                         <button ion-item (click)="gotoMediaList({
+        <button ion-item (click)="gotoMediaList({
                                             subCategoryId : '80', 
                                             mainTitle: 'إجتماعات الاحد - تسبيح و عبادة - مرئية',
                                             listHeader: 'فترات التسبيح الاسبوعية' 
@@ -105,7 +105,7 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'2'">
-      <ion-list-header >
+      <ion-list-header>
         مؤتمرات
       </ion-list-header>
       <ion-item-group>
@@ -169,9 +169,8 @@
     </button>
     </ion-list>
 
-
     <ion-list *ngSwitchCase="'4'">
-      <ion-list-header >
+      <ion-list-header>
         اخرى
       </ion-list-header>
 

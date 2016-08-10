@@ -28,10 +28,6 @@ export class MyApp {
       BackgroundMode.enable();
     });
   }
-
-
-
-  
 }
 
 ionicBootstrap(MyApp, [], {
