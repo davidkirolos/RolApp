@@ -8,8 +8,8 @@
  */
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {Media} from '../entities/media';
-import {SubCategory} from '../entities/subCategory';
+import {Media,SubCategory} from '../entities/interfaces';
+// import {SubCategory} from '../entities/subCategory';
 import {Observable}     from 'rxjs/Observable';
 
 @Injectable()
@@ -19,6 +19,7 @@ export class MediaService {
 
     private mediaServiceUrl = 'http://riversoflife.ca/MediaServiceAPI/m?u=Admin&p=c@l!f0rni@&id=';
     private subCategoryServiceUrl = 'http://riversoflife.ca/MediaServiceAPI/sc?u=Admin&p=c@l!f0rni@&id=';
+    private scmUrl = 'http://riversoflife.ca/MediaServiceAPI/scm?u=Admin&p=c@l!f0rni@&id=';
 
     getSubCategoryList(mainCategoryId): Observable<SubCategory[]> {
         return this.http.get(this.subCategoryServiceUrl + mainCategoryId)
@@ -30,6 +31,13 @@ export class MediaService {
         return this.http.get(this.mediaServiceUrl + subCategoryId)
             .map(this.extractData)
             .catch(this.handleError);
+    }
+
+    getSubCategoriesWithMedia(mainCategoryId): Observable<SubCategory[]>{
+          return this.http.get(this.subCategoryServiceUrl + mainCategoryId)
+            .map(this.extractData)
+            .catch(this.handleError);
+
     }
 
     private extractData(res: Response) {

@@ -19,11 +19,12 @@ export class MediaPlayerService {
 
 
   loadMedia(media, isAutoPlay) {
-    var playerInstance = jwplayer("myMediaDiv");
+    // var playerInstance = jwplayer("myMediaDiv");
     // "http://download.riversoflife.ca/riversoflife/video_weekly_sermons/a3mal_alrosol_video/gh_24072016and.mp4";
     // "http://riversoflife.flashsvr.com:1935/riversoflife/_definst_/riversoflife/video_weekly_sermons/a3mal_alrosol_video/gh_24072016and.mp4/playlist.m3u8";
 
-    return Promise.resolve(playerInstance).then(
+    // return Promise.resolve(playerInstance).then(
+      return Promise.resolve(jwplayer("myMediaDiv")).then(
       playerInstance => {
         // console.log(media.Location.endsWith(".mp3"));
 

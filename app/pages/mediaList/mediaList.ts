@@ -1,13 +1,12 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController, NavParams, Alert,AlertController, Loading,LoadingController,Content} from 'ionic-angular';
-import {Media} from '../../model/entities/media'
-import {SubCategory} from '../../model/entities/subCategory';
+import {Media,SubCategory} from '../../model/entities/interfaces';
 import {MediaService} from '../../providers/media-service/media-service';
 import {MediaPlayer} from '../../components/media-player/media-player';
 import {MediaPlayerService} from '../../components/media-player/media-player-service';
 import 'rxjs/Rx';
 
-declare var jwplayer: any;
+// declare var jwplayer: any;
 
 @Component({
   templateUrl: 'build/pages/mediaList/mediaList.html',

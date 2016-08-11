@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import {Media} from '../../model/entities/media';
-import {SubCategory} from '../../model/entities/subCategory';
+import {Media, SubCategory} from '../../model/entities/interfaces';
+// import {SubCategory} from '../../model/entities/subCategory';
 import {Observable}     from 'rxjs/Observable';
 
 /*
@@ -18,12 +18,34 @@ export class MediaService {
 
   private mediaServiceUrl = 'http://riversoflife.ca/MediaServiceAPI/m?u=Admin&p=c@l!f0rni@&id=';
   private subCategoryServiceUrl = 'http://riversoflife.ca/MediaServiceAPI/sc?u=Admin&p=c@l!f0rni@&id=';
+  private scmServiceUrl = 'http://riversoflife.ca/MediaServiceAPI/scm?u=Admin&p=c@l!f0rni@&id=';
 
   constructor(private http: Http) {
     this.subCategoryList = null;
     this.mediaList = null;
   }
+ getScmList(mainCategoryId) {
+    if (this.subCategoryList) {
+      // already loaded data
+      return Promise.resolve(this.subCategoryList);
+    }
 
+    // don't have the data yet
+    return new Promise(resolve => {
+      // We're using Angular Http provider to request the data,
+      // then on the response it'll map the JSON data to a parsed JS object.
+      // Next we process the data and resolve the promise with the new data.
+      this.http.get(this.scmServiceUrl + mainCategoryId)
+        .map(res => res.json())
+        .catch(this.handleError)
+        .subscribe(data => {
+          // we've got back the raw data, now generate the core schedule data
+          // and save the data for later reference
+          this.subCategoryList = data;
+          resolve(this.subCategoryList);
+        });
+    });
+  }
   getSubCategoryList(mainCategoryId) {
     if (this.subCategoryList) {
       // already loaded data
@@ -42,7 +64,7 @@ export class MediaService {
           // we've got back the raw data, now generate the core schedule data
           // and save the data for later reference
           this.subCategoryList = data;
-          resolve(this.subCategoryList); 
+          resolve(this.subCategoryList);
         });
     });
   }
@@ -68,7 +90,6 @@ export class MediaService {
         });
     });
   }
-
 
   private handleError(error: any) {
     // In a real world app, we might use a remote logging infrastructure
