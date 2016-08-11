@@ -16,17 +16,19 @@
     <ion-list-header style="text-align:center;font-weight: bold;font-size: 14pt;">
       {{inParams.listHeader}}
     </ion-list-header>
-     <media-player></media-player>
-<div [ngSwitch]="activeSC">
-    <template let-subCategory ngFor [ngForOf]="subCategoryList">
-      <ion-item-divider dark (click)="activeSC == subCategory.Id ? activeSC = 0 : activeSC = subCategory.Id" >
-        <h2 style="text-align: center;
+    <media-player></media-player>
+    <div [ngSwitch]="activeSC">
+      <template let-subCategory ngFor [ngForOf]="subCategoryList">
+        <ion-item-divider light (click)="activeSC == subCategory.Id ? activeSC = 0 : activeSC = subCategory.Id">
+          <h2 style="text-align: center;
     font-size: 1.5rem;
     font-weight: bold;
     margin: 0;">{{subCategory.Description}}</h2>
-      </ion-item-divider>
-      <template class="animate-switch-container" hideWhen="ios" let-media ngFor [ngForOf]="subCategory.Medias" *ngSwitchCase="subCategory.Id"> 
-        <button  ion-item text-wrap (click)="loadMedia(media,true)">
+          <ion-icon name="add" item-right [hidden]="activeSC == subCategory.Id"></ion-icon>
+          <ion-icon name="remove" item-right *ngSwitchCase="subCategory.Id"></ion-icon>
+        </ion-item-divider>
+        <template let-media ngFor [ngForOf]="subCategory.Medias" *ngSwitchCase="subCategory.Id">
+          <button ion-item text-wrap (click)="loadMedia(media,true)">
        <ion-thumbnail item-left>
           <img src="../build/img/others/audio_dark.png" style="background-image:url('build/img/others/audio_dark.png');
           
@@ -45,9 +47,9 @@
    </button>
 
 
+        </template>
       </template>
-    </template>
-</div>
+    </div>
     <!--<button ion-item text-wrap *ngFor="let subCategory of subCategoryList" (click)="gotoMediaList({
                       'mainTitle': inParams.mainTitle+ ' - ' +inParams.listHeader ,
                       'listHeader': subCategory.Description,
