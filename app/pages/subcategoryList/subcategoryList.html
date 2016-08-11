@@ -8,10 +8,10 @@
 
 </ion-header>
 <ion-content>
-  <ion-refresher (ionRefresh)="doRefresh($event)">
+  <!--<ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="إسحب للتحديث" refreshingSpinner="circles" style="color: #fff">
     </ion-refresher-content>
-  </ion-refresher>
+  </ion-refresher>-->
   <ion-list>
     <ion-list-header style="text-align:center;font-weight: bold;font-size: 14pt;">
       {{inParams.listHeader}}
@@ -19,13 +19,12 @@
     <media-player></media-player>
     <div [ngSwitch]="activeSC">
       <template let-subCategory ngFor [ngForOf]="subCategoryList">
-        <ion-item-divider light (click)="activeSC == subCategory.Id ? activeSC = 0 : activeSC = subCategory.Id">
-          <h2 style="text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 0;">{{subCategory.Description}}</h2>
+        <ion-item-divider light (click)="showList(subCategory,$event)">
+          <h2 style="text-align: center; font-size: 1.5rem; font-weight: bold; margin: 0;">
+            {{subCategory.Description}}
+          </h2>
           <ion-icon name="add" item-right [hidden]="activeSC == subCategory.Id"></ion-icon>
-          <ion-icon name="remove" item-right *ngSwitchCase="subCategory.Id"></ion-icon>
+          <ion-icon name="remove" item-right [hidden]="activeSC != subCategory.Id"></ion-icon>
         </ion-item-divider>
         <template let-media ngFor [ngForOf]="subCategory.Medias" *ngSwitchCase="subCategory.Id">
           <button ion-item text-wrap (click)="loadMedia(media,true)">
@@ -45,18 +44,9 @@
         <h2>{{media.Title}}</h2>
         <p>{{media.MediaDate}}</p>
    </button>
-
-
         </template>
       </template>
     </div>
-    <!--<button ion-item text-wrap *ngFor="let subCategory of subCategoryList" (click)="gotoMediaList({
-                      'mainTitle': inParams.mainTitle+ ' - ' +inParams.listHeader ,
-                      'listHeader': subCategory.Description,
-                      'subCategoryId': subCategory.Id
-                      })">
-        <ion-icon name="list" item-left></ion-icon>
-        <h2>{{subCategory.Description}}</h2>
-  </button>-->
+
   </ion-list>
 </ion-content>
