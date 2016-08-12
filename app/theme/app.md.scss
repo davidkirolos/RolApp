@@ -30,5 +30,7 @@
 // CSS that should only apply to the Material Design app
 
 .toolbar[dark] .segment-button.segment-activated {
+    
+    background-color: #1f1714 !important;
     border-radius: 5px 5px 0 0;
 }

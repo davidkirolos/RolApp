@@ -56,6 +56,9 @@
 .toolbar .segment-button {
     font-size: 1.5rem;
 }
+.toolbar[dark] .segment-button.segment-activated {
+    background-color: #f4f4f4 !important;
+}
 
 // select arrow in the list for ios
 // --------------------------------------------------

@@ -29,5 +29,7 @@
 // --------------------------------------------------
 // CSS that should only apply to the Windows app
 .toolbar[dark] .segment-button.segment-activated {
+    
+        background-color: #1f1714 !important;
     border-radius: 5px 5px 0 0;
 }
