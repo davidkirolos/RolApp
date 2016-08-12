@@ -54,7 +54,9 @@ ion-title{
 
 .toolbar[dark] .segment-button.segment-activated {
     color: #327eff !important;
-    background-color: #f4f4f4 !important;
+    // background-color: #f4f4f4 !important;
+        background-color: #1f1714 !important;
+    // border-radius: 5px 5px 0 0;
 }
 
 ion-segment[dark] .segment-button {

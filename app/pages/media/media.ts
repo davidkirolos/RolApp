@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, Config} from 'ionic-angular';
+import {NavController, Config, Platform} from 'ionic-angular';
 // import {MediaPlugin} from 'ionic-native';
 import {Media} from '../../model/entities/media'
 import {MediaService} from '../../model/services/MediaService';
@@ -14,7 +14,7 @@ export class MediaPage {
   mediaTabs: any;
   wondersMediaList: Media[];
   currentTrack: any;
-  constructor(private navController: NavController, private mediaService: MediaService, private config: Config) {
+  constructor(private platform: Platform,private navController: NavController, private mediaService: MediaService, private config: Config) {
     this.mediaTabs = "1";
   }
 
@@ -35,6 +35,13 @@ export class MediaPage {
 
       }
       );
+  }
+  getStyle(){
+     if (this.platform.is('android')) {
+    return "rgba(21, 21, 21, 0.7)";
+    }else{
+      return "";
+    }
   }
 
   ngAfterContentInit() {

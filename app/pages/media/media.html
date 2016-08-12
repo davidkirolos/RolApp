@@ -6,7 +6,7 @@
   </ion-navbar>
 
   <ion-toolbar dark>
-    <ion-segment dark [(ngModel)]="mediaTabs">
+    <ion-segment dark [(ngModel)]="mediaTabs" [style.background-color]="getStyle()" >
       <ion-segment-button value="1">
         اجتماعات الاحد
       </ion-segment-button>
