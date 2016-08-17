@@ -1,0 +1,12 @@
+
+sudo ionic plugin rm cordova-plugin-statusbar
+sudo ionic plugin add cordova-plugin-statusbar
+
+sudo ionic plugin rm cordova-plugin-background-mode
+sudo ionic plugin add cordova-plugin-background-mode
+
+sudo ionic plugin rm cordova-plugin-geolocation
+sudo ionic plugin add cordova-plugin-geolocation
+
+sudo ionic plugin rm cordova-plugin-network-information
+sudo ionic plugin add cordova-plugin-network-information
