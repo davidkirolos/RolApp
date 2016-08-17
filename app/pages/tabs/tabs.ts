@@ -8,7 +8,6 @@ import {Network, Connection} from 'ionic-native';
 import {NoInternetPage} from '../no-internet/no-internet';
 import {MyApp} from '../../app';
 
-
 @Component({
   templateUrl: 'build/pages/tabs/tabs.html'
 })
@@ -29,15 +28,34 @@ export class TabsPage {
     this.tab3Root = UpcomingPage;
     this.tab4Root = StreamingPage;
 
+
+
+
+    // this.database = new SQLite();
+    // console.log("opening Database");
+    // this.database.openDatabase({ name: "rolAppData.db", location: "default" }).then(() => {
+
+    // console.log("Database opened");
+    // console.log("getting data from server");    
+    //   this.mediaService.getAllScmList().then(
+    //     subCategoryList => {
+    //       console.log("inserting data into database");
+    //       this.insertMediaData(subCategoryList);
+    //       return subCategoryList;
+    //     });
+    // }, (error) => {
+    //   console.log("ERROR From database open: ", error);
+    // });
+
     platform.ready().then(() => {
-      this.checkDeviceType
+      this.checkDeviceType();
       if (this.deviceType != "Web") {
-        this.addConnectivityListeners();
+        // this.addConnectivityListeners();
       }
     });
   }
 
-
+  
 
   addConnectivityListeners() {
 
@@ -97,7 +115,7 @@ export class TabsPage {
     let connectSubscription = Network.onConnect().subscribe(() => {
       console.log('network connected!');
       this.navController.setRoot(MyApp).then(
-        () =>  this.navController.setRoot(TabsPage)
+        () => this.navController.setRoot(TabsPage)
       );
       // We just got a connection but we need to wait briefly
       // before we determine the connection type.  Might need to wait    

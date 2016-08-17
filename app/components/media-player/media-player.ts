@@ -9,7 +9,7 @@ import {IONIC_DIRECTIVES} from 'ionic-angular';
 */
 
 
-// declare var jwplayer: any;
+declare var jwplayer: any;
 
 @Component({
   selector: 'media-player',
@@ -24,7 +24,7 @@ export class MediaPlayer {
   }
 
   ngOnInit() {
-    // var playerInstance = jwplayer("myElement");
+    var playerInstance = jwplayer("myElement");
     // console.log(playerInstance);
     
     // playerInstance.setup({

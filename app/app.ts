@@ -1,13 +1,17 @@
 // import {Component,ExceptionHandler} from '@angular/core';
 import {Component} from '@angular/core';
-import {Platform, ionicBootstrap} from 'ionic-angular';
-import {StatusBar, BackgroundMode, Network, Connection} from 'ionic-native';
+import {Platform, ionicBootstrap, SqlStorage, Storage} from 'ionic-angular';
+import {JSONP_PROVIDERS} from "@angular/http";
+import {StatusBar, BackgroundMode, Network, Connection, SQLite} from 'ionic-native';
 import 'rxjs/Rx';
 import {TabsPage} from './pages/tabs/tabs';
 import {MediaPlayer} from './components/media-player/media-player';
+import {SafeHttp, NetworkService} from './providers/network-service/network-service';
+import {MediaService} from './providers/media-service/media-service';
 
 @Component({
   templateUrl: 'build/app.html',
+  providers:[MediaService],
   directives: [MediaPlayer]
 })
 
@@ -29,8 +33,8 @@ export class MyApp {
     });
   }
 }
-
-ionicBootstrap(MyApp, [], {
+// enableProdMode();
+ionicBootstrap(MyApp, [JSONP_PROVIDERS, SafeHttp, NetworkService], {
   backButtonText: 'الرجوع',
   backButtonIcon: 'arrow-forward',
   iconMode: 'ios',

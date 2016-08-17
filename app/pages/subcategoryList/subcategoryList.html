@@ -26,16 +26,10 @@
           <ion-icon name="add" item-right [hidden]="activeSC == subCategory.Id"></ion-icon>
           <ion-icon name="remove" item-right [hidden]="activeSC != subCategory.Id"></ion-icon>
         </ion-item-divider>
-        <template let-media ngFor [ngForOf]="subCategory.Medias" *ngSwitchCase="subCategory.Id">
+        <template let-media ngFor [ngForOf]="mediaList" *ngSwitchCase="subCategory.Id">
           <button ion-item text-wrap (click)="loadMedia(media,true)">
        <ion-thumbnail item-left>
-          <img src="build/img/others/audio_dark.png" style="
-          <!--background-image:url('build/img/others/audio_dark.png');-->
-          border:0;
-          background-position:center center; 
-          background-size:cover; 
-          width:100%; 
-          height:100%;">             
+          <img src="build/img/others/audio_dark.png" >             
           
         </ion-thumbnail>
         
@@ -43,7 +37,11 @@
         <h2>{{media.Author}}</h2>
         </div>
         <h2>{{media.Title}}</h2>
-        <p>{{media.MediaDate}}</p>
+        <p >
+          <span dir="ltr">
+          {{media.MediaDate}}
+          </span>
+          </p>
    </button>
         </template>
       </template>

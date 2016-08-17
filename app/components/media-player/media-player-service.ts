@@ -37,7 +37,7 @@ export class MediaPlayerService {
           // height: media.Location.endsWith(".mp3") == true ? "150px" : "",
           // aspectratio: media.Location.endsWith(".mp3") == true ? "" : "16:9",
            aspectratio: "16:9",
-          image: "../build/img/others/streamin_bg.png",
+          image: "build/img/others/streamin_bg.png",
           // image: media.Location.endsWith(".mp3") == true ? "http://riversoflife.ca/favicon.png" : "",
           description: media.Description,
           hlshtml: true,

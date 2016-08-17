@@ -7,10 +7,9 @@ import {MediaPlayer} from '../../components/media-player/media-player';
 import {MediaService} from '../../providers/media-service/media-service';
 import {MediaPlayerService} from '../../components/media-player/media-player-service';
 import 'rxjs/Rx';
-
 @Component({
   templateUrl: 'build/pages/subcategoryList/subcategoryList.html',
-  providers: [MediaService, MediaPlayerService],
+  providers: [MediaPlayerService],
   directives: [MediaPlayer]
 })
 export class SubcategoryListPage {
@@ -20,8 +19,10 @@ export class SubcategoryListPage {
   inParams: any;
   activeSC: any;
 
-  mediaList: Media[];
-  subCategoryList: SubCategory[];
+  // mediaList: Media[];
+  mediaList: Array<Object>;
+  // subCategoryList: SubCategory[];
+  subCategoryList: Array<Object>;
   mainCategoryId: string;
 
   constructor(private elementRef: ElementRef, private mediaPlayerService: MediaPlayerService, private navController: NavController, navParams: NavParams, private mediaService: MediaService, private config: Config, private loadingController: LoadingController) {
@@ -30,13 +31,38 @@ export class SubcategoryListPage {
   }
 
   showList(subCategory, event) {
-    this.activeSC == subCategory.Id ? this.activeSC = 0 : this.activeSC = subCategory.Id;
-    setTimeout(
-      () => {
-        var pos = this.findPos(event.target);
-        this.content.scrollTo(pos.left, pos.top-1, 300);
+    this.mediaService.getLocalMediaData(subCategory.Id).then(
+      medias => {
+        if (medias.length > 0) {
+          this.mediaList = [];
+          for (var i = 0; i < medias.length; i++) {
+            this.mediaList.push({
+              Id: medias.item(i).Id,
+              Author: medias.item(i).Author,
+              Title: medias.item(i).Title,
+              Decription: medias.item(i).Decription,
+              Location: medias.item(i).Location,
+              MediaDate: medias.item(i).MediaDate,
+              UploadDate: medias.item(i).UploadDate,
+              Active: medias.item(i).Active,
+              SubCategoryId: medias.item(i).SubCategoryId,
+              Downloaded: medias.item(i).Downloaded
+            });
+
+          }
+        }
+
+        // this.mediaList = medias;
+        this.activeSC == subCategory.Id ? this.activeSC = 0 : this.activeSC = subCategory.Id;
+        setTimeout(
+          () => {
+            var pos = this.findPos(event.target);
+            this.content.scrollTo(pos.left, pos.top - 1, 300);
+          }
+          , 0);
+        return this.mediaList;
       }
-      , 50);
+    );
 
   }
 
@@ -46,15 +72,14 @@ export class SubcategoryListPage {
     }
 
     element = element.parentNode.parentNode.parentNode.parentNode;
-    console.log(element);
-    
+    // console.log(element);
 
     var curleft = 0;
     var curtop = 0;
     do {
       curleft += element.offsetLeft;
       curtop += element.offsetTop;
-      console.log(curtop);
+      // console.log(curtop);
       return {
         left: curleft,
         top: curtop
@@ -80,11 +105,13 @@ export class SubcategoryListPage {
     //   // this.loadSubCategories();
     // }, 350);
   }
+
   ionViewDidEnter() {
     setTimeout(() => {
-      this.loadSubCategories().then(data =>
-        this.loadMedia((<SubCategory>this.subCategoryList[0]).Medias[0], false));
-    }, 350);
+      this.loadSubCategories().then(data => {
+        //this.loadMedia((<SubCategory>this.subCategoryList[0]).Medias[0], false)
+      });
+    }, 0);
 
   }
 
@@ -133,12 +160,30 @@ export class SubcategoryListPage {
 
     loading.present();
 
-    return this.mediaService.getScmList(this.mainCategoryId)
+    return this.mediaService.getLocalSCData(this.mainCategoryId)
       .then(subCategoryList => {
-        this.subCategoryList = subCategoryList
+        if (subCategoryList.length > 0) {
+          this.subCategoryList = [];
+          for (var i = 0; i < subCategoryList.length; i++) {
+            this.subCategoryList.push({
+              Id: subCategoryList.item(i).Id,
+              Name: subCategoryList.item(i).Name,
+              Description: subCategoryList.item(i).Description,
+              MainCategoryId: subCategoryList.item(i).MainCategoryId,
+              PlayListId: subCategoryList.item(i).PlayListId,
+              rowNum: i + 1
+            });
+
+          }
+        }
+        // console.log(this.subCategoryList);
+
+        // this.subCategoryList = subCategoryList
       })
       .then(() => { loading.dismiss() }
       );
   }
+
+
 
 }

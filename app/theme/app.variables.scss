@@ -82,10 +82,11 @@ ion-page.show-page ~ .nav-decor {
     background: rgba(0, 0, 0, 0.6) !important;
 }
 ion-content {
-    background-image: url('../../build/img/bg/bg05.jpg');
+    background-image: url('../../build/img/bg/bg08.jpg');
     background-size: 100% auto;
     background-color: #000 !important;
     color: #fff !important;
+    background-repeat: no-repeat;
 }
 scroll-content{
     background-color: rgba(0, 0, 0, 0.1)  !important;
@@ -112,6 +113,7 @@ ion-navbar.toolbar {
 ion-tabs[dark] ion-tabbar {
     border-color: rgba(9, 9, 9, 0) !important;
     background: rgba(0, 0,0, 0.7) !important;
+    //background: rgba(0, 13, 47, 0) !important;
 }
 
 ion-list {
