@@ -15,3 +15,5 @@ ionic plugin rm cordova.plugins.diagnostic && ionic plugin add cordova.plugins.d
 sudo cordova plugin rm cordova-plugin-media && sudo cordova plugin add cordova-plugin-media
 
 sudo npm remove -g cordova && sudo npm remove -g ionic && sudo npm install -g --unsafe-perm=true cordova && sudo npm install -g --unsafe-perm=true ionic@beta && sudo npm install -g --unsafe-perm=true ios-sim && sudo chown -R david /Users/david/.config/configstore/ && sudo chown -R david /Users/david/.cordova/ && sudo chown -R david /Users/david/.ionic/  && sudo chown -R david /Users/david/Documents/ionic/
+
+https://github.com/driftyco/cordova-plugin-wkwebview-engine#installation-instructions

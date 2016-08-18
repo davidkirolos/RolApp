@@ -214,7 +214,7 @@ export class MediaService {
     // Using SQLite
     this.storage = new Storage(SqlStorage, options);
 
-    if (Network.connection != Connection.NONE) {
+    if (Network.connection != Connection.NONE && !this.storage.get("initialized")) {
       this.storage.query(`CREATE TABLE IF NOT EXISTS SubCategory(
       Id INT PRIMARY KEY,
       Name varchar(255),
@@ -251,7 +251,12 @@ export class MediaService {
               this.insertMediaData(subCategoryList);
               return subCategoryList;
             });
-        });
+        }).then(
+          (subCategoryList) =>{
+            this.storage.set("initialized",true);
+            return subCategoryList;
+          }
+        );
     }
 
   }

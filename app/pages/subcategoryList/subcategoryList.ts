@@ -9,8 +9,9 @@ import {MediaPlayerService} from '../../components/media-player/media-player-ser
 import 'rxjs/Rx';
 @Component({
   templateUrl: 'build/pages/subcategoryList/subcategoryList.html',
-  providers: [MediaPlayerService],
-  directives: [MediaPlayer]
+  providers: [MediaPlayerService]
+  // ,
+  // directives: [MediaPlayer]
 })
 export class SubcategoryListPage {
 

@@ -19,22 +19,22 @@ export class MediaPage {
   }
 
   ngOnInit() {
-    this.mediaService.getMediasList('160')
-      .subscribe(
-      wondersMediaList => {
-        this.wondersMediaList = wondersMediaList;
-        this.currentTrack = this.wondersMediaList[0];
-        // var file = new MediaPlugin(this.currentTrack.Location);
-        // file.init.then(() => {
-        //   console.log('Playback Finished');
-        // }, (err) => {
-        //   console.log('somthing went wrong! error code: ' + err.code + ' message: ' + err.message);
-        // });
-        // // play the file
-        // file.play();
+    // this.mediaService.getMediasList('160')
+    //   .subscribe(
+    //   wondersMediaList => {
+    //     this.wondersMediaList = wondersMediaList;
+    //     this.currentTrack = this.wondersMediaList[0];
+    //     // var file = new MediaPlugin(this.currentTrack.Location);
+    //     // file.init.then(() => {
+    //     //   console.log('Playback Finished');
+    //     // }, (err) => {
+    //     //   console.log('somthing went wrong! error code: ' + err.code + ' message: ' + err.message);
+    //     // });
+    //     // // play the file
+    //     // file.play();
 
-      }
-      );
+    //   }
+    //   );
   }
   getStyle(){
      if (this.platform.is('android')) {

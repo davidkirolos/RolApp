@@ -20,7 +20,7 @@ export class MyApp {
   private rootPage: any;
   public deviceType: any;
 
-  constructor(private platform: Platform) {
+  constructor(private platform: Platform, private mediaService: MediaService) {
     this.rootPage = TabsPage;
 
     platform.ready().then(() => {
@@ -30,6 +30,11 @@ export class MyApp {
       StatusBar.styleLightContent();
       // Prevent the app from going to sleep while in background.
       BackgroundMode.enable();
+      if (window.indexedDB) {
+   console.log("I'm in WKWebView!");
+} else {
+   console.log("I'm in UIWebView");
+}
     });
   }
 }
