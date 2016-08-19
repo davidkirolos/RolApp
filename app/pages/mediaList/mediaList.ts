@@ -81,7 +81,7 @@ export class MediaListPage {
   loadMediaList() {
     let loading = this.loadingController.create({});
     loading.present();
-    return this.mediaService.getMediasList(this.subCategoryId)
+    return this.mediaService.getLocalMediaData(this.subCategoryId)
       .then(
       mediaList => this.mediaList = mediaList,
       error => this.handleError(<any>error))

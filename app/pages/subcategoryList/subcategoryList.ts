@@ -10,8 +10,8 @@ import 'rxjs/Rx';
 @Component({
   templateUrl: 'build/pages/subcategoryList/subcategoryList.html',
   providers: [MediaPlayerService]
-  // ,
-  // directives: [MediaPlayer]
+  ,
+  directives: [MediaPlayer]
 })
 export class SubcategoryListPage {
 
@@ -35,22 +35,23 @@ export class SubcategoryListPage {
     this.mediaService.getLocalMediaData(subCategory.Id).then(
       medias => {
         if (medias.length > 0) {
-          this.mediaList = [];
-          for (var i = 0; i < medias.length; i++) {
-            this.mediaList.push({
-              Id: medias.item(i).Id,
-              Author: medias.item(i).Author,
-              Title: medias.item(i).Title,
-              Decription: medias.item(i).Decription,
-              Location: medias.item(i).Location,
-              MediaDate: medias.item(i).MediaDate,
-              UploadDate: medias.item(i).UploadDate,
-              Active: medias.item(i).Active,
-              SubCategoryId: medias.item(i).SubCategoryId,
-              Downloaded: medias.item(i).Downloaded
-            });
+          this.mediaList = medias;
+          // this.mediaList = [];
+          // for (var i = 0; i < medias.length; i++) {
+          //   this.mediaList.push({
+          //     Id: medias.item(i).Id,
+          //     Author: medias.item(i).Author,
+          //     Title: medias.item(i).Title,
+          //     Decription: medias.item(i).Decription,
+          //     Location: medias.item(i).Location,
+          //     MediaDate: medias.item(i).MediaDate,
+          //     UploadDate: medias.item(i).UploadDate,
+          //     Active: medias.item(i).Active,
+          //     SubCategoryId: medias.item(i).SubCategoryId,
+          //     Downloaded: medias.item(i).Downloaded
+          //   });
 
-          }
+          // }
         }
 
         // this.mediaList = medias;
@@ -164,18 +165,19 @@ export class SubcategoryListPage {
     return this.mediaService.getLocalSCData(this.mainCategoryId)
       .then(subCategoryList => {
         if (subCategoryList.length > 0) {
-          this.subCategoryList = [];
-          for (var i = 0; i < subCategoryList.length; i++) {
-            this.subCategoryList.push({
-              Id: subCategoryList.item(i).Id,
-              Name: subCategoryList.item(i).Name,
-              Description: subCategoryList.item(i).Description,
-              MainCategoryId: subCategoryList.item(i).MainCategoryId,
-              PlayListId: subCategoryList.item(i).PlayListId,
-              rowNum: i + 1
-            });
+          this.subCategoryList = subCategoryList;
+          // this.subCategoryList = [];
+          // for (var i = 0; i < subCategoryList.length; i++) {
+          //   this.subCategoryList.push({
+          //     Id: subCategoryList.item(i).Id,
+          //     Name: subCategoryList.item(i).Name,
+          //     Description: subCategoryList.item(i).Description,
+          //     MainCategoryId: subCategoryList.item(i).MainCategoryId,
+          //     PlayListId: subCategoryList.item(i).PlayListId,
+          //     rowNum: i + 1
+          //   });
 
-          }
+          // }
         }
         // console.log(this.subCategoryList);
 

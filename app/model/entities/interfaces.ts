@@ -17,7 +17,7 @@ export interface Media {
     UploadDate;
     Active;
     SubCategoryId;
-    Brief;
+    Downloaded;
 }
 
 export interface SubCategory {

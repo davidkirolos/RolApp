@@ -208,29 +208,32 @@ export class MediaService {
     let options = {
       name: "rolAppData.db",
       backupFlag: SqlStorage.BACKUP_LOCAL,
-      existingDatabase: true 
+      existingDatabase: true
     }
 
     // Using SQLite
     this.storage = new Storage(SqlStorage, options);
-
-    if (Network.connection != Connection.NONE && !this.storage.get("initialized")) {
-      this.storage.query(`CREATE TABLE IF NOT EXISTS SubCategory(
+    
+    this.storage.get("isInitialized").then(
+      (initialized) => {
+        // if (Network.connection != Connection.NONE && !this.storage.get("initialized")) {
+        if (!initialized) {
+          return this.storage.query(`CREATE TABLE IF NOT EXISTS SubCategory(
       Id INT PRIMARY KEY,
       Name varchar(255),
       Description varchar(255),
       MainCategoryId INT,
       PlayListId INT
      )`).then((data) => {
-          console.log("TABLE CREATED: ", data);
-        }, (error) => {
-          console.error("Unable to execute sql", error);
-        }).then(() => {
-          this.storage.query(`CREATE TABLE IF NOT EXISTS Media(
+              console.log("TABLE CREATED: ", data);
+            }, (error) => {
+              console.error("Unable to execute sql", error);
+            }).then(() => {
+              return this.storage.query(`CREATE TABLE IF NOT EXISTS Media(
       Id INT PRIMARY KEY,
       Author varchar(255),
       Title varchar(255),
-      Description varchar(255),
+      Decription varchar(255),
       Location varchar(255),
       MediaDate date,
       UploadDate date,
@@ -238,26 +241,30 @@ export class MediaService {
       SubCategoryId INT,
       Downloaded INT
      )`).then((data) => {
-              console.log("TABLE CREATED: ", data);
+                  console.log("TABLE CREATED: ", data);
+                }, (error) => {
+                  console.error("Unable to execute sql", error);
+                })
             }, (error) => {
-              console.error("Unable to execute sql", error);
-            })
-        }, (error) => {
-          console.error("Unable to open database", error);
-        }).then(() => {
-          this.getAllScmList().then(
-            subCategoryList => {
-              console.log("inserting data into database");
-              this.insertMediaData(subCategoryList);
+              console.error("Unable to open database", error);
+            }).then(() => {
+              this.getAllScmList().then(
+                subCategoryList => {
+                  console.log("inserting data into database");
+                  this.insertMediaData(subCategoryList);
+                  return subCategoryList;
+                });
+            }).then(
+            (subCategoryList) => {
+              this.storage.set("isInitialized", true);
               return subCategoryList;
-            });
-        }).then(
-          (subCategoryList) =>{
-            this.storage.set("initialized",true);
-            return subCategoryList;
-          }
-        );
-    }
+            }
+            );
+        }
+      }
+    );
+
+
 
   }
 
@@ -311,9 +318,8 @@ export class MediaService {
       // (select  a.SubCategoryId, a.id, (select count(*)+1 from Media b  where a.Id = b.Id) as rownum from Media a order by a.MediaDate desc) as Media 
       // WHERE SubCategory.Id = Media.SubCategoryId and SubCategory.MainCategoryId = ? order by Media.rownum`, [mainCategoryId]).then(
       (data) => {
-        console.log(data.res.rows);
 
-        return data.res.rows;
+        return <SubCategory[]>data.res.rows;
       });
   }
 
@@ -321,7 +327,7 @@ export class MediaService {
     // return this.database.executeSql("SELECT * from Media WHERE Media.SubCategoryId = ?", [subCategoryId]).then(
     return this.storage.query("SELECT * from Media WHERE Media.SubCategoryId = ?", [subCategoryId]).then(
       (data) => {
-        return data.res.rows;
+        return <Media[]>data.res.rows;
       });
   }
 
