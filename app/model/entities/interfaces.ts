@@ -27,6 +27,6 @@ export interface SubCategory {
     // CreatedDate;
     MainCategoryId;
     PlayListId;
-    rowNum;
+    RowNum;
     // Medias: Media[];
 }

@@ -26,35 +26,17 @@ export class MediaService {
   private mediaServiceUrl = 'http://riversoflife.ca/MediaServiceAPI/m?u=Admin&p=c@l!f0rni@&id=';
   private subCategoryServiceUrl = 'http://riversoflife.ca/MediaServiceAPI/sc?u=Admin&p=c@l!f0rni@&id=';
   private scmServiceUrl = 'http://riversoflife.ca/MediaServiceAPI/scm?u=Admin&p=c@l!f0rni@&id=';
-  private allScmServiceUrl = 'http://riversoflife.ca/MediaServiceAPI/allscm?u=Admin&p=c@l!f0rni@&id=';
+  private allScmServiceUrl = 'http://riversoflife.ca/MediaServiceAPI/allscm?u=Admin&p=c@l!f0rni@';
 
   constructor(private safeHttp: SafeHttp) {
     this.subCategoryList = null;
     this.mediaList = null;
 
-    // this.storage = new Storage(SqlStorage, {
-    //   name: "rolAppData.db",
-    //   location: 1,
-    //   backupFlag: SqlStorage.BACKUP_LOCAL,
-    //   existingDatabase: true
-    // });
-
-    if (this.database == null) {
-
-      this.buildDbSQL();
-      //   this.database = new SQLite();
-
-      //   this.database.openDatabase({
-      //   name: "rolAppData.db",
-      //   location: 1,
-      //   backupFlag: SqlStorage.BACKUP_LOCAL,
-      //   existingDatabase: true
-      // }).then(() => {
-      //     this.buildDb();
-      //   }, (error) => {
-      //     console.log("ERROR: ", error);
-      //   });
+    if (this.storage == null) {
+      this.openDB();
     }
+    // this.storage.remove("isInitialized");
+    this.buildDbSQL(false);
   }
   getScmList(mainCategoryId) {
     if (this.subCategoryList) {
@@ -147,64 +129,7 @@ export class MediaService {
     });
   }
 
-  buildDb() {
-
-    // Using SQLite
-    this.database = new SQLite();
-    this.database.openDatabase({
-      name: "rolAppData.db",
-      location: 1,
-      backupFlag: SqlStorage.BACKUP_LOCAL,
-      existingDatabase: true
-    }).then(() => {
-      this.database.executeSql(`CREATE TABLE IF NOT EXISTS SubCategory(
-      Id INT PRIMARY KEY,
-      Name varchar(255),
-      Description varchar(255),
-      MainCategoryId INT,
-      PlayListId INT
-     )`, {}).then((data) => {
-          console.log("TABLE CREATED: ", data);
-        }, (error) => {
-          console.error("Unable to execute sql", error);
-        })
-    }, (error) => {
-      console.error("Unable to open database", error);
-    }).then(() => {
-      this.database.executeSql(`CREATE TABLE IF NOT EXISTS Media(
-      Id INT PRIMARY KEY,
-      Author varchar(255),
-      Title varchar(255),
-      Description varchar(255),
-      Location varchar(255),
-      MediaDate date,
-      UploadDate date,
-      Active INT,
-      SubCategoryId INT,
-      Downloaded INT
-     )`, {}).then((data) => {
-          console.log("TABLE CREATED: ", data);
-        }, (error) => {
-          console.error("Unable to execute sql", error);
-        })
-    }, (error) => {
-      console.error("Unable to open database", error);
-    }).then(() => {
-      if (Network.connection != Connection.NONE) {
-        this.getAllScmList().then(
-          subCategoryList => {
-            console.log("inserting data into database");
-            this.insertMediaData(subCategoryList);
-            return subCategoryList;
-          });
-      }
-    });
-
-  }
-
-
-  buildDbSQL() {
-
+  openDB() {
     let options = {
       name: "rolAppData.db",
       backupFlag: SqlStorage.BACKUP_LOCAL,
@@ -213,6 +138,17 @@ export class MediaService {
 
     // Using SQLite
     this.storage = new Storage(SqlStorage, options);
+    return this.storage;
+  }
+
+
+  buildDbSQL(reset) {
+
+    if (reset) {
+      this.storage.clear();
+      this.storage.query(`DROP TABLE SubCategory`);
+      this.storage.query(`DROP TABLE Media`);
+    }
 
     this.storage.get("isInitialized").then(
       (initialized) => {
@@ -223,11 +159,12 @@ export class MediaService {
       Name varchar(255),
       Description varchar(255),
       MainCategoryId INT,
-      PlayListId INT
+      PlayListId INT,
+      RowNum INT
      )`).then((data) => {
               console.log("TABLE CREATED: ", data);
             }, (error) => {
-              
+
               console.error("Unable to execute sql", JSON.stringify(error, null, 2));
             }).then(() => {
               return this.storage.query(`CREATE TABLE IF NOT EXISTS Media(
@@ -270,7 +207,7 @@ export class MediaService {
   }
 
   insertMediaData = (scmList) => {
-    let subCategoryQuery = "INSERT OR REPLACE INTO SubCategory VALUES (?, ?, ?, ?, ?)";
+    let subCategoryQuery = "INSERT OR REPLACE INTO SubCategory VALUES (?, ?, ?, ?, ?,?)";
     let mediaQuery = "INSERT OR REPLACE INTO Media VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     for (let sc of scmList) {
       // this.database.executeSql(subCategoryQuery,
@@ -279,7 +216,8 @@ export class MediaService {
           sc.Name,
           sc.Description,
           sc.MainCategoryId,
-          sc.PlayListId]
+          sc.PlayListId,
+          sc.RowNum]
       ).then((data) => {
         // console.log("INSERTED: " + JSON.stringify(data));
       }, (error) => {
@@ -312,7 +250,10 @@ export class MediaService {
 
 
   getLocalSCData(mainCategoryId) {
-    return this.storage.query("select distinct SubCategory.Id,SubCategory.Name,SubCategory.Description,SubCategory.MainCategoryId,SubCategory.PlayListId from SubCategory ,(select distinct SubCategoryId from Media order by Media.MediaDate desc) as Media WHERE SubCategory.Id = Media.SubCategoryId  and MainCategoryId = ? ", [mainCategoryId]).then(
+    return this.storage.query(`select distinct SubCategory.Id,SubCategory.Name,SubCategory.Description,SubCategory.MainCategoryId,SubCategory.PlayListId, SubCategory.RowNum 
+    from SubCategory ,
+    (select distinct SubCategoryId from Media order by Media.MediaDate desc) as Media 
+    WHERE SubCategory.Id = Media.SubCategoryId  and MainCategoryId = ? order by RowNum`, [mainCategoryId]).then(
       (data) => {
         if (data.res.rows.length > 0) {
           this.subCategoryList = [];
@@ -323,7 +264,7 @@ export class MediaService {
               Description: data.res.rows.item(i).Description,
               MainCategoryId: data.res.rows.item(i).MainCategoryId,
               PlayListId: data.res.rows.item(i).PlayListId,
-              rowNum: i + 1
+              RowNum: data.res.rows.item(i).RowNum
             });
 
           }
