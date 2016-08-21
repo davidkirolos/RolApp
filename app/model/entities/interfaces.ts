@@ -11,7 +11,7 @@ export interface Media {
     Id;
     Author;
     Title;
-    Decription;
+    Description;
     Location;
     MediaDate;
     UploadDate;
@@ -23,10 +23,10 @@ export interface Media {
 export interface SubCategory {
     Id;
     Name;
-    Decription;
-    CreatedDate;
+    Description;
+    // CreatedDate;
     MainCategoryId;
     PlayListId;
     rowNum;
-    Medias: Media[];
+    // Medias: Media[];
 }

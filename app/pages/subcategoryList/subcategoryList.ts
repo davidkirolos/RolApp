@@ -20,10 +20,10 @@ export class SubcategoryListPage {
   inParams: any;
   activeSC: any;
 
-  // mediaList: Media[];
-  mediaList: Array<Object>;
-  // subCategoryList: SubCategory[];
-  subCategoryList: Array<Object>;
+  mediaList: Media[];
+  // mediaList: Array<Object>;
+  subCategoryList: SubCategory[];
+  // subCategoryList: Array<Object>;
   mainCategoryId: string;
 
   constructor(private elementRef: ElementRef, private mediaPlayerService: MediaPlayerService, private navController: NavController, navParams: NavParams, private mediaService: MediaService, private config: Config, private loadingController: LoadingController) {
@@ -34,7 +34,7 @@ export class SubcategoryListPage {
   showList(subCategory, event) {
     this.mediaService.getLocalMediaData(subCategory.Id).then(
       medias => {
-        if (medias.length > 0) {
+        // if (medias.length > 0) {
           this.mediaList = medias;
           // this.mediaList = [];
           // for (var i = 0; i < medias.length; i++) {
@@ -42,7 +42,7 @@ export class SubcategoryListPage {
           //     Id: medias.item(i).Id,
           //     Author: medias.item(i).Author,
           //     Title: medias.item(i).Title,
-          //     Decription: medias.item(i).Decription,
+          //     Description: medias.item(i).Description,
           //     Location: medias.item(i).Location,
           //     MediaDate: medias.item(i).MediaDate,
           //     UploadDate: medias.item(i).UploadDate,
@@ -52,7 +52,7 @@ export class SubcategoryListPage {
           //   });
 
           // }
-        }
+        // }
 
         // this.mediaList = medias;
         this.activeSC == subCategory.Id ? this.activeSC = 0 : this.activeSC = subCategory.Id;
@@ -166,18 +166,7 @@ export class SubcategoryListPage {
       .then(subCategoryList => {
         if (subCategoryList.length > 0) {
           this.subCategoryList = subCategoryList;
-          // this.subCategoryList = [];
-          // for (var i = 0; i < subCategoryList.length; i++) {
-          //   this.subCategoryList.push({
-          //     Id: subCategoryList.item(i).Id,
-          //     Name: subCategoryList.item(i).Name,
-          //     Description: subCategoryList.item(i).Description,
-          //     MainCategoryId: subCategoryList.item(i).MainCategoryId,
-          //     PlayListId: subCategoryList.item(i).PlayListId,
-          //     rowNum: i + 1
-          //   });
-
-          // }
+          return this.subCategoryList;
         }
         // console.log(this.subCategoryList);
 

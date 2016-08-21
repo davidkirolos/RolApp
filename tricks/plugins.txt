@@ -7,6 +7,9 @@ ionic plugin rm cordova-plugin-geolocation && ionic plugin add cordova-plugin-ge
 
 ionic plugin rm cordova-plugin-network-information && ionic plugin add cordova-plugin-network-information
 
+
+  ionic plugin rm cordova-sqlite-ext && ionic plugin add cordova-sqlite-ext
+
 ionic plugin rm cordova-sqlite-storage && ionic plugin add cordova-sqlite-storage
 ionic plugin rm cordova-plugin-sqlite-2 && ionic plugin add cordova-plugin-sqlite-2
 
@@ -17,3 +20,10 @@ sudo cordova plugin rm cordova-plugin-media && sudo cordova plugin add cordova-p
 sudo npm remove -g cordova && sudo npm remove -g ionic && sudo npm install -g --unsafe-perm=true cordova && sudo npm install -g --unsafe-perm=true ionic@beta && sudo npm install -g --unsafe-perm=true ios-sim && sudo chown -R david /Users/david/.config/configstore/ && sudo chown -R david /Users/david/.cordova/ && sudo chown -R david /Users/david/.ionic/  && sudo chown -R david /Users/david/Documents/ionic/
 
 https://github.com/driftyco/cordova-plugin-wkwebview-engine#installation-instructions
+
+
+
+
+
+
+ionic plugin rm cordova-plugin-statusbar && ionic plugin rm cordova-plugin-background-mode  && ionic plugin add cordova-plugin-statusbar  && ionic plugin rm cordova-plugin-network-information && ionic plugin rm cordova.plugins.diagnostic && ionic plugin add cordova-plugin-background-mode && ionic plugin add cordova-plugin-network-information && ionic plugin add cordova.plugins.diagnostic && ionic plugin rm cordova-sqlite-ext && ionic plugin add cordova-sqlite-ext

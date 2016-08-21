@@ -17,8 +17,8 @@ import {SQLite, Network, Connection} from 'ionic-native';
 */
 @Injectable()
 export class MediaService {
-  subCategoryList: any;
-  mediaList: any;
+  subCategoryList: SubCategory[];
+  mediaList: Media[];
 
   public database: SQLite;
   public storage: Storage;
@@ -213,7 +213,7 @@ export class MediaService {
 
     // Using SQLite
     this.storage = new Storage(SqlStorage, options);
-    
+
     this.storage.get("isInitialized").then(
       (initialized) => {
         // if (Network.connection != Connection.NONE && !this.storage.get("initialized")) {
@@ -227,13 +227,14 @@ export class MediaService {
      )`).then((data) => {
               console.log("TABLE CREATED: ", data);
             }, (error) => {
-              console.error("Unable to execute sql", error);
+              
+              console.error("Unable to execute sql", JSON.stringify(error, null, 2));
             }).then(() => {
               return this.storage.query(`CREATE TABLE IF NOT EXISTS Media(
       Id INT PRIMARY KEY,
       Author varchar(255),
       Title varchar(255),
-      Decription varchar(255),
+      Description varchar(255),
       Location varchar(255),
       MediaDate date,
       UploadDate date,
@@ -243,10 +244,10 @@ export class MediaService {
      )`).then((data) => {
                   console.log("TABLE CREATED: ", data);
                 }, (error) => {
-                  console.error("Unable to execute sql", error);
+                  console.error("Unable to execute sql", JSON.stringify(error, null, 2));
                 })
             }, (error) => {
-              console.error("Unable to open database", error);
+              console.error("Unable to open database", JSON.stringify(error, null, 2));
             }).then(() => {
               this.getAllScmList().then(
                 subCategoryList => {
@@ -283,7 +284,7 @@ export class MediaService {
         // console.log("INSERTED: " + JSON.stringify(data));
       }, (error) => {
         // console.log("ERROR: " + JSON.stringify(error.err));
-        console.log("ERROR in Inserting data into SubCategory: " + error.message);
+        console.log("ERROR in Inserting data into SubCategory: " + JSON.stringify(error, null, 2));
       });
       for (let media of sc.Medias) {
         // this.database.executeSql(mediaQuery, [
@@ -302,7 +303,7 @@ export class MediaService {
           // console.log("INSERTED: " + JSON.stringify(data));
         }, (error) => {
           // console.log("ERROR: " + JSON.stringify(error.err));
-          console.log("ERROR in inserting data into Media: " + error);
+          console.log("ERROR in inserting data into Media: " + JSON.stringify(error, null, 2));
         });
       }
     }
@@ -312,14 +313,22 @@ export class MediaService {
 
   getLocalSCData(mainCategoryId) {
     return this.storage.query("select distinct SubCategory.Id,SubCategory.Name,SubCategory.Description,SubCategory.MainCategoryId,SubCategory.PlayListId from SubCategory ,(select distinct SubCategoryId from Media order by Media.MediaDate desc) as Media WHERE SubCategory.Id = Media.SubCategoryId  and MainCategoryId = ? ", [mainCategoryId]).then(
-
-      // return this.storage.query(`select distinct SubCategory.Id,SubCategory.Name,SubCategory.Description, SubCategory.MainCategoryId,SubCategory.PlayListId 
-      // from SubCategory ,
-      // (select  a.SubCategoryId, a.id, (select count(*)+1 from Media b  where a.Id = b.Id) as rownum from Media a order by a.MediaDate desc) as Media 
-      // WHERE SubCategory.Id = Media.SubCategoryId and SubCategory.MainCategoryId = ? order by Media.rownum`, [mainCategoryId]).then(
       (data) => {
+        if (data.res.rows.length > 0) {
+          this.subCategoryList = [];
+          for (var i = 0; i < data.res.rows.length; i++) {
+            this.subCategoryList.push({
+              Id: data.res.rows.item(i).Id,
+              Name: data.res.rows.item(i).Name,
+              Description: data.res.rows.item(i).Description,
+              MainCategoryId: data.res.rows.item(i).MainCategoryId,
+              PlayListId: data.res.rows.item(i).PlayListId,
+              rowNum: i + 1
+            });
 
-        return <SubCategory[]>data.res.rows;
+          }
+        }
+        return this.subCategoryList;
       });
   }
 
@@ -327,7 +336,26 @@ export class MediaService {
     // return this.database.executeSql("SELECT * from Media WHERE Media.SubCategoryId = ?", [subCategoryId]).then(
     return this.storage.query("SELECT * from Media WHERE Media.SubCategoryId = ?", [subCategoryId]).then(
       (data) => {
-        return <Media[]>data.res.rows;
+        if (data.res.rows.length > 0) {
+          this.mediaList = [];
+          for (var i = 0; i < data.res.rows.length; i++) {
+            this.mediaList.push({
+              Id: data.res.rows.item(i).Id,
+              Author: data.res.rows.item(i).Author,
+              Title: data.res.rows.item(i).Title,
+              Description: data.res.rows.item(i).Description,
+              Location: data.res.rows.item(i).Location,
+              MediaDate: data.res.rows.item(i).MediaDate,
+              UploadDate: data.res.rows.item(i).UploadDate,
+              Active: data.res.rows.item(i).Active,
+              SubCategoryId: data.res.rows.item(i).SubCategoryId,
+              Downloaded: data.res.rows.item(i).Downloaded
+            });
+          }
+        }
+        return this.mediaList;
+        // this.mediaList = <Media[]> data.res.rows;
+        // return this.mediaList;
       });
   }
 
