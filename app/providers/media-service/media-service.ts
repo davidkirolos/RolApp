@@ -152,7 +152,7 @@ export class MediaService {
 
     this.storage.get("isInitialized").then(
       (initialized) => {
-        if (Network.connection != Connection.NONE ) {
+        if (Network.connection != Connection.NONE && !initialized) {
         // if (!initialized) {
           return this.storage.query(`CREATE TABLE IF NOT EXISTS SubCategory(
       Id INT PRIMARY KEY,

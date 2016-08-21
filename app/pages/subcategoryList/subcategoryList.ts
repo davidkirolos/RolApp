@@ -56,12 +56,12 @@ export class SubcategoryListPage {
 
         // this.mediaList = medias;
         this.activeSC == subCategory.Id ? this.activeSC = 0 : this.activeSC = subCategory.Id;
-        setTimeout(
-          () => {
+        // setTimeout(
+        //   () => {
             var pos = this.findPos(event.target);
-            this.content.scrollTo(pos.left, pos.top - 1, 300);
-          }
-          , 0);
+            this.content.scrollTo(pos.left, pos.top - 1, 100);
+          // }
+          // , 0);
         return this.mediaList;
       }
     );
@@ -109,11 +109,12 @@ export class SubcategoryListPage {
   }
 
   ionViewDidEnter() {
-    setTimeout(() => {
-      this.loadSubCategories().then(data => {
+    // setTimeout(() => {
+      this.loadSubCategories();
+      // .then(data => {
         //this.loadMedia((<SubCategory>this.subCategoryList[0]).Medias[0], false)
-      });
-    }, 0);
+      // });
+    // }, 0);
 
   }
 
